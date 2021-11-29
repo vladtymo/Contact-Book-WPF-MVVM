@@ -1,0 +1,40 @@
+﻿<Window x:Class="Wpf_Bindings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Bindings"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="425">
+    <StackPanel Margin="10">
+        <TextBox Name="numberBox" Text="33" Margin="5"></TextBox>
+
+        <ProgressBar Value="{Binding ElementName=numberBox, Path=Text}" Height="20" Margin="5"></ProgressBar>
+        <!--User-Editable Control (TextBox, Slider, CheckBox etc.)-->
+        <Slider Value="{Binding ElementName=numberBox, Path=Text}" Maximum="100" Margin="5"></Slider>
+
+        <!--Binding Mode: TwoWay (default for user-editable)
+                          OneWay (default for others)-->
+        <CheckBox Name="expandCB" IsChecked="False" Margin="5">Expanded</CheckBox>
+        <Expander IsExpanded="{Binding ElementName=expandCB, Path=IsChecked, Mode=TwoWay}" Margin="5">
+            <TextBlock>Expander Data</TextBlock>
+        </Expander>
+
+        <!--UpdateSourceTrigger: LostFocus (text controls)
+                                 PropertyChanged (for others)-->
+        <TextBox Text="{Binding ElementName=slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Name="number2TB" Margin="5"></TextBox>
+        <Slider Name="slider" Maximum="100" Margin="5"></Slider>
+
+        <GroupBox Header="Login" Background="LightCyan">
+            <StackPanel>
+                <Label>Email:</Label>
+                <TextBox Text="{Binding Path=Email}"></TextBox>
+                <Label>Age:</Label>
+                <TextBox Text="{Binding Path=Age}"></TextBox>
+                <Label>Login:</Label>
+                <TextBox Text="{Binding Path=AuthData.Login}"></TextBox>
+                <Button Margin="0,10" Click="Button_Click">Check Data</Button>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</Window>
